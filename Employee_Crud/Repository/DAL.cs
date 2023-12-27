@@ -17,7 +17,7 @@ namespace Employee_Crud.Repository
         {
         }
 
-        public SqlConnection con = new SqlConnection("Data Source=STPL-INT-ANUS;Initial Catalog=test_mvc;User ID=sa;Password = P@ssw0rd");
+        public SqlConnection con = new SqlConnection("Data Source=STPL-INT-ANUS;Initial Catalog=Employee_DB;User ID=sa;Password = P@ssw0rd");
 
         public List<EmployeeModel> GetDataList()
         {
@@ -32,10 +32,12 @@ namespace Employee_Crud.Repository
             {
                 lst.Add(new EmployeeModel
                 {
-                    id = Convert.ToInt32(dr[0]),
-                    emailid = Convert.ToString(dr[1]),
-                    Password = Convert.ToString(dr[2]),
-                    name = Convert.ToString(dr[3]),
+                    Employee_Id = Convert.ToInt32(dr[0]),
+                    Email = Convert.ToString(dr[1]),
+                    Salary = Convert.ToString(dr[2]),
+                    Employee_Name = Convert.ToString(dr[3]),
+                    Address = Convert.ToString(dr[4]),
+                    Phone = Convert.ToString(dr[5])
                 });
             }
             con.Close();
@@ -46,10 +48,12 @@ namespace Employee_Crud.Repository
             int i;
             SqlCommand cmd = new SqlCommand("sp_insert", con);
             cmd.CommandType = CommandType.StoredProcedure;
-            cmd.Parameters.AddWithValue("@id", ur.id);
-            cmd.Parameters.AddWithValue("@email", ur.emailid);
-            cmd.Parameters.AddWithValue("@pwd", ur.Password);
-            cmd.Parameters.AddWithValue("@nitesh", ur.name);
+            cmd.Parameters.AddWithValue("@Employee_Id", ur.Employee_Id);
+            cmd.Parameters.AddWithValue("@Email", ur.Email);
+            cmd.Parameters.AddWithValue("@Salary", ur.Salary);
+            cmd.Parameters.AddWithValue("@nitesh", ur.Employee_Name);
+            cmd.Parameters.AddWithValue("@Address", ur.Address);
+            cmd.Parameters.AddWithValue("@Phone", ur.Phone);
             con.Open();
             i = cmd.ExecuteNonQuery();
             con.Close();
@@ -72,6 +76,8 @@ namespace Employee_Crud.Repository
             cmd.Parameters.AddWithValue("@Email", ur.Email);
             cmd.Parameters.AddWithValue("@Salary", ur.Salary);
             cmd.Parameters.AddWithValue("@nitesh", ur.Employee_Name);
+            cmd.Parameters.AddWithValue("@Address", ur.Address);
+            cmd.Parameters.AddWithValue("@Phone", ur.Phone);
             con.Open();
             i = cmd.ExecuteNonQuery();
             con.Close();

@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks.Dataflow;
 using Employee_Crud.Models;
+using Employee_Crud.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,19 +8,24 @@ namespace Employee_Crud.Controllers
 {
     public class EmployeeController : Controller
     {
+        public EmployeeController()
+        {
+            
+        }
         //private object empDataAccessLayer;
         DAL dal = new DAL();
         // GET: EmployeeController
-        public ActionResult Index()
+        public IActionResult Index()
         {
             ModelState.Clear();
-            return View(dal.GetDataList());
+            var result = dal.GetDataList();
+            return View(result);
         }
 
         // GET: EmployeeController/Details/5
-        public ActionResult Details(int id)
+        public IActionResult Details(int id)
         {
-            return View(dal.GetDataList().Find(ur => ur.id == id));
+            return View(dal.GetDataList().Find(ur => ur.Employee_Id == id));
         }
 
         // GET: EmployeeController/Create
@@ -42,7 +48,7 @@ namespace Employee_Crud.Controllers
         //GET : User/Edit/5
         public IActionResult Edit(int id)
         {
-            return View(dal.GetDataList().Find(ur => ur.id == id));
+            return View(dal.GetDataList().Find(ur => ur.Employee_Id == id));
         }
 
         // POST : User/Edit/5
@@ -64,13 +70,13 @@ namespace Employee_Crud.Controllers
         }
 
         //GET : User/Delete/5
-        public ActionResult Delete(int id)
+        public IActionResult Delete(int id)
         {
-            return View(dal.GetDataList().Find(ur => ur.id == id));
+            return View(dal.GetDataList().Find(ur => ur.Employee_Id == id));
         }
         // POST : User/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, EmployeeModel ur)
+        public IActionResult Delete(int id, EmployeeModel ur)
         {
             try
             {

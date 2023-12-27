@@ -1,4 +1,5 @@
 ﻿using Employee_Crud.Models;
+using Employee_Crud.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,7 +20,7 @@ namespace Employee_Crud.Controllers
         [HttpGet("{id}")]
         public IActionResult Details(int id)
         {
-            return Ok(dal.GetDataList().Find(ur => ur.id == id));
+            return Ok(dal.GetDataList().Find(ur => ur.Employee_Id == id));
         }
         //GET:User/Create
         public IActionResult Create()
@@ -48,7 +49,7 @@ namespace Employee_Crud.Controllers
         [HttpGet("{id}")]
         public IActionResult Edit(int id)
         {
-            return Ok(dal.GetDataList().Find(ur => ur.id == id));
+            return Ok(dal.GetDataList().Find(ur => ur.Employee_Id == id));
             // return Ok("success");
         }
 
@@ -76,7 +77,7 @@ namespace Employee_Crud.Controllers
         {
             //UserRegModel req = new UserRegModel();
             // req.id = request.id;
-            return Ok(dal.GetDataList().Find(ur => ur.id == id));
+            return Ok(dal.GetDataList().Find(ur => ur.Employee_Id == id));
         }
         // POST : User/Delete/5
         [HttpDelete("{id}")]
